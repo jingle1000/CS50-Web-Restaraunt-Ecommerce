@@ -1,2 +1,8 @@
 
 *.pdf
+
+*.ipynb
+
+johns_pizza/johns_pizza/__pycache__/
+
+*.pyc
