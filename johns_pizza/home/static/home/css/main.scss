@@ -1,4 +1,6 @@
 $header-height: 400px;
+$menu-item-height: 275px;
+$footer-height: 80px;
 $px-sm: 5px;
 $px-md: 10px;
 $px-lg: 15px;
@@ -21,10 +23,11 @@ header {
 }
 
 .menu {
+    margin-bottom: $footer-height * 2 !important;
     img {
-        width: 100%;
-        height: 100%;
-        border-radius: $px-md;
+        width: auto;
+        height: $menu-item-height;
+        margin-left: -85px;
     }
     h4 {
         font-weight: 400;
@@ -33,8 +36,10 @@ header {
         font-weight: 700;
     }
     .menu-category {
+        height: $menu-item-height;
         background: #fff;
         border-radius: $px-md;
+        overflow: hidden;
     }
     .input-group {
         padding-left: $px-xl;
@@ -43,11 +48,19 @@ header {
     .col-md-9 {
         padding: $px-lg;
     }
+    .col-md-3 {
+        overflow: hidden;
+        border-radius: $px-lg;
+    }
 }
 
 footer {
+    height: $footer-height;
     padding: $px-lg;
     background: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
     p {
         margin-top: $px-md; 
     }

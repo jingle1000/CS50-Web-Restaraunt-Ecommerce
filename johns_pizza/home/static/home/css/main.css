@@ -12,10 +12,14 @@ header .overlay {
   background: rgba(0, 0, 0, 0.253);
 }
 
+.menu {
+  margin-bottom: 160px !important;
+}
+
 .menu img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  width: auto;
+  height: 275px;
+  margin-left: -85px;
 }
 
 .menu h4 {
@@ -27,8 +31,10 @@ header .overlay {
 }
 
 .menu .menu-category {
+  height: 275px;
   background: #fff;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .menu .input-group {
@@ -40,9 +46,18 @@ header .overlay {
   padding: 15px;
 }
 
+.menu .col-md-3 {
+  overflow: hidden;
+  border-radius: 15px;
+}
+
 footer {
+  height: 80px;
   padding: 15px;
   background: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 footer p {
