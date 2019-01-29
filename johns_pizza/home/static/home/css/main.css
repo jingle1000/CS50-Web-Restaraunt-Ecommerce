@@ -1,3 +1,26 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+html {
+  font-family: 'Lato', sans-serif !important;
+  padding-top: 60px;
+}
+
+nav {
+  padding: 0 !important;
+}
+
+nav ul {
+  padding: 0 !important;
+}
+
+nav li {
+  margin: 0 !important;
+  padding: 10px;
+}
+
+nav li:hover {
+  background: #e2e2e2;
+}
+
 header {
   background: url("../img/banner.jpg") no-repeat center center;
   background-size: cover;
@@ -13,7 +36,7 @@ header .overlay {
 }
 
 .menu {
-  margin-bottom: 160px !important;
+  margin-bottom: 112px !important;
 }
 
 .menu img {
@@ -31,10 +54,11 @@ header .overlay {
 }
 
 .menu .menu-category {
-  height: 275px;
+  padding: 15px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
+  border: 1px solid #c9c9c9;
 }
 
 .menu .input-group {
@@ -51,16 +75,16 @@ header .overlay {
   border-radius: 15px;
 }
 
-footer {
-  height: 80px;
-  padding: 15px;
-  background: #fff;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+.form-container {
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  background: #fff !important;
+  border-radius: 10px;
 }
 
-footer p {
-  margin-top: 10px;
+.fa-shopping-cart {
+  margin: 10px;
 }
 /*# sourceMappingURL=main.css.map */

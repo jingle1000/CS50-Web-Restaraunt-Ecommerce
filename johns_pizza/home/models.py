@@ -1,21 +1,50 @@
 from django.db import models
-
-# Create your models here.
-class Food(models.Model):
-    category = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
-    size = models.CharField(max_length=20)
-    toppings = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.category} {self.name} {self.size} {self.num_toppings} {self.price}"
-
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 class Topping(models.Model):
     name = models.CharField(max_length=80)
     def __str__(self):
         return f"{self.name}"
+
+class Category(models.Model):
+    category = models.CharField(max_length=80)
+    def __str__(self):
+        return f"{self.category}"
+
+class Size(models.Model):
+    size = models.CharField(max_length=80)
+    def __str__(self):
+        return f"{self.size}"
+
+class Food(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=100)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
+    toppings = models.ForeignKey(Topping, on_delete=models.CASCADE, null=True)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.category}, {self.name}, {self.size}, {self.toppings}, {self.price}"
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    foods = models.ManyToManyField(Food)
+
+    @property
+    def get_total(self):
+        total = 0
+        for food in self.foods.all():
+            total += food.price
+        return total
+
+    def __str__(self):
+        return f"Order for {self.user} Total: {self.get_total} "
+    
+    
+    
+
 
 
 

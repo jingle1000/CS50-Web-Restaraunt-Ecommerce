@@ -1,46 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-
-foods = [
-    {
-        "Category":"Pizza",
-        "Name": "Classic",
-        "Toppings": "Cheese",
-        "Size": "Small",
-        "Price": 17.45
-    },
-    {
-        "Category":"Pizza",
-        "Name": "Classic",
-        "Toppings": "Cheese",
-        "Size": "Medium",
-        "Price": 17.45
-    },
-    {
-        "Category":"Pizza",
-        "Name": "Sicilian",
-        "Toppings": "Cheese",
-        "Size": "Large",
-        "Price": 17.45
-    },
-    {
-        "Category":"Pasta",
-        "Name": "Baked Ziti w/Mozzarella",
-        "Toppings": "N/A",
-        "Size": "Regular",
-        "Price": 17.45
-    },
-    {
-        "Category":"Pasta",
-        "Name": "Baked Ziti w/Meatballs",
-        "Toppings": "",
-        "Size": "Regular",
-        "Price": 17.45
-    },
-]
+from .models import Food
 
 def index(request):
+    food_objects = Food.objects.all()
+    foods = []
+    for food in food_objects:
+        item = {}
+        item["Category"] = str(food.category)
+        item["Name"] = str(food.name)
+        item["Toppings"] = str(food.toppings)
+        item["Size"] = str(food.size)
+        item["Price"] = float(food.price)
+        foods.append(item)
     food_data = {}
     for food in foods:
         category = food["Category"]

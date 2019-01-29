@@ -11,48 +11,57 @@
     {% for food, data in foods.items %}
     <!--menu item-->
     <div class="menu-category shadow mb-4">
-        <div class="row">
-            <div class="col-md-3">
-                <img src="{% static '/home/img/cheese-pizza.jpg' %}" alt="">
+        <h4>{{ food }}</h4>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Style</label>
             </div>
-            <div class="col-md-9">
-                <h4>{{ food }}</h4>
+            <select class="custom-select" id="inputGroupSelect01">
+                {% for choice in data.0.name %}
+                <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Toppings</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                {% for choice in data.0.toppings %}
+                <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Size</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                {% for choice in data.0.size %}
+                <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
+            </div>
+            <input type="number" class="form-control">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Style</label>
+                      <span class="input-group-text">$</span>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        {% for choice in data.0.name %}
-                        <option value="{{choice}}">{{choice}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Toppings</label>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        {% for choice in data.0.toppings %}
-                        <option value="{{choice}}">{{choice}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Size</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        {% for choice in data.0.size %}
-                        <option value="{{choice}}">{{choice}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
-                    </div>
-                    <input type="number" class="form-control">
-                </div>
+                  </div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary form-control">Add to Order</button>
             </div>
         </div>
     </div>
