@@ -6,3 +6,5 @@
 johns_pizza/johns_pizza/__pycache__/
 
 *.pyc
+
+johns_pizza/home/migrations/

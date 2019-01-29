@@ -5,89 +5,68 @@
     <div class="overlay">
     </div>
 </header>
-<section class="container menu text-center mb-5">
+<section class="container menu text-center">
     <h2 class="mt-4">Menu</h2>
     <hr class="mt-3">
-
+    {% for food, data in foods.items %}
     <!--menu item-->
-    <div class="menu-category shadow">
-        <div class="row">
-            <div class="col-md-3">
-                <img src="{% static '/home/img/cheese-pizza.jpg' %}" alt="">
+    <div class="menu-category shadow mb-4">
+        <h4>{{ food }}</h4>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Style</label>
             </div>
-            <div class="col-md-9">
-                <h4>Classic Pizza</h4>
+            <select class="custom-select" id="inputGroupSelect01">
+                {% for choice in data.0.name %}
+                <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Toppings</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                {% for choice in data.0.toppings %}
+                <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Size</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                {% for choice in data.0.size %}
+                <option value="{{choice}}">{{choice}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
+            </div>
+            <input type="number" class="form-control">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Toppings</label>
+                      <span class="input-group-text">$</span>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Size</label>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
-                    </div>
-                    <input type="number" class="form-control">
-                </div>
+                  </div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary form-control">Add to Order</button>
             </div>
         </div>
     </div>
+    {% endfor %}
     <!--end menu item-->
-    <!--menu item-->
-    <div class="menu-category mt-4 shadow">
-        <div class="row">
-            <div class="col-md-3">
-                <img src="{% static '/home/img/cheese-pizza.jpg' %}" alt="">
-            </div>
-            <div class="col-md-9">
-                <h4>Classic Pizza</h4>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Toppings</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Size</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
-                    </div>
-                    <input type="number" class="form-control">
-                </div>
-            </div>
-        </div>
-        <!--end menu item-->
     </div>
 </section>
-    {% endblock content %}
+{% endblock content %}

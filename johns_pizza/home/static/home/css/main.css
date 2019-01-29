@@ -1,3 +1,26 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+html {
+  font-family: 'Lato', sans-serif !important;
+  padding-top: 60px;
+}
+
+nav {
+  padding: 0 !important;
+}
+
+nav ul {
+  padding: 0 !important;
+}
+
+nav li {
+  margin: 0 !important;
+  padding: 10px;
+}
+
+nav li:hover {
+  background: #e2e2e2;
+}
+
 header {
   background: url("../img/banner.jpg") no-repeat center center;
   background-size: cover;
@@ -12,10 +35,14 @@ header .overlay {
   background: rgba(0, 0, 0, 0.253);
 }
 
+.menu {
+  margin-bottom: 112px !important;
+}
+
 .menu img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  width: auto;
+  height: 275px;
+  margin-left: -85px;
 }
 
 .menu h4 {
@@ -27,8 +54,11 @@ header .overlay {
 }
 
 .menu .menu-category {
+  padding: 15px;
   background: #fff;
   border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #c9c9c9;
 }
 
 .menu .input-group {
@@ -40,12 +70,21 @@ header .overlay {
   padding: 15px;
 }
 
-footer {
-  padding: 15px;
-  background: #fff;
+.menu .col-md-3 {
+  overflow: hidden;
+  border-radius: 15px;
 }
 
-footer p {
-  margin-top: 10px;
+.form-container {
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  background: #fff !important;
+  border-radius: 10px;
+}
+
+.fa-shopping-cart {
+  margin: 10px;
 }
 /*# sourceMappingURL=main.css.map */

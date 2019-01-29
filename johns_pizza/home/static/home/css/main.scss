@@ -1,8 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+$nav-height: 60px;
 $header-height: 400px;
+$menu-item-height: 275px;
+$form-width: 500px;
+$footer-height: 56px;
 $px-sm: 5px;
 $px-md: 10px;
 $px-lg: 15px;
 $px-xl: 20px;
+$red: #e74c3c;
+
+html {
+    font-family: 'Lato', sans-serif !important;
+    padding-top: $nav-height;
+}
+
+nav {
+    padding: 0 !important;
+    ul {
+        padding: 0 !important;
+    }
+    li {
+        margin: 0 !important;
+        padding: $px-md;
+        &:hover {
+            background: rgb(226, 226, 226);
+        }
+    }
+}
 
 header {
     background: url('../img/banner.jpg') no-repeat center center;
@@ -21,10 +47,11 @@ header {
 }
 
 .menu {
+    margin-bottom: $footer-height * 2 !important;
     img {
-        width: 100%;
-        height: 100%;
-        border-radius: $px-md;
+        width: auto;
+        height: $menu-item-height;
+        margin-left: -85px;
     }
     h4 {
         font-weight: 400;
@@ -33,8 +60,11 @@ header {
         font-weight: 700;
     }
     .menu-category {
+        padding: $px-lg;
         background: #fff;
         border-radius: $px-md;
+        overflow: hidden;
+        border: 1px solid #c9c9c9;
     }
     .input-group {
         padding-left: $px-xl;
@@ -43,12 +73,23 @@ header {
     .col-md-9 {
         padding: $px-lg;
     }
-}
-
-footer {
-    padding: $px-lg;
-    background: #fff;
-    p {
-        margin-top: $px-md; 
+    .col-md-3 {
+        overflow: hidden;
+        border-radius: $px-lg;
     }
 }
+
+.form-container {
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    width: $form-width;
+    background: #fff !important;
+    border-radius: $px-md;
+}
+
+.fa-shopping-cart {
+    margin: $px-md;
+}
+
+
