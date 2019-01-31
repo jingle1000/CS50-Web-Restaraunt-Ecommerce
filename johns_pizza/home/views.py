@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 from .models import Food
 from .serializers import FoodSerializer
 from rest_framework import viewsets
@@ -38,5 +39,11 @@ def index(request):
 def about(request):
     return render(request, 'home/about.html')
 
-# class FoodViewSet(viewsets.ModelViewSet):
-#     queryset = Food.objects.
+def FoodInfo(request, category, name, size, topping):
+    food = Food.objects.filter(category__category=category, name=name, size__size=size, toppings__name=topping)[:1]
+    serailized_food = serializers.serialize('json', food)
+    context = {
+        "food": serailized_food
+    }
+    return JsonResponse(context)
+
