@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
-from .models import Food
-from .serializers import FoodSerializer
-from rest_framework import viewsets
+from .models import Food, Order
+
 
 def index(request):
     food_objects = Food.objects.all()
@@ -46,4 +45,18 @@ def FoodInfo(request, category, name, size, topping):
         "food": serailized_food
     }
     return JsonResponse(context)
+
+def createOrder(request, category, name, size, topping):
+    food = Food.objects.filter(category__category=category, name=name, size__size=size, toppings__name=topping)[:1]
+    print(len(food))
+    if (food):
+        order = Order(user=request.user)
+        order.save()
+        order.foods.add(food[0])
+        context = {'result':'success'}
+        return JsonResponse(context)
+    else:
+        context = {'result':'failure'}
+        return JsonResponse(context)
+    
 
