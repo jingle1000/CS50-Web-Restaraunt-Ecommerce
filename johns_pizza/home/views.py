@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Food
+from .serializers import FoodSerializer
+from rest_framework import viewsets
 
 def index(request):
     food_objects = Food.objects.all()
@@ -35,3 +37,6 @@ def index(request):
 
 def about(request):
     return render(request, 'home/about.html')
+
+# class FoodViewSet(viewsets.ModelViewSet):
+#     queryset = Food.objects.
