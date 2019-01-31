@@ -48,15 +48,34 @@ def FoodInfo(request, category, name, size, topping):
 
 def createOrder(request, category, name, size, topping):
     food = Food.objects.filter(category__category=category, name=name, size__size=size, toppings__name=topping)[:1]
-    print(len(food))
-    if (food):
-        order = Order(user=request.user)
+    print(food)
+    if food:
+        order = Order(user=request.user, foods=food[0])
         order.save()
-        order.foods.add(food[0])
         context = {'result':'success'}
         return JsonResponse(context)
     else:
         context = {'result':'failure'}
         return JsonResponse(context)
+
+def getOrders(request):
+    orders = Order.objects.filter(user=request.user)
+    order_list = []
+    for order in orders:
+        food_array = [
+            str(order.foods.category),
+            order.foods.name,
+            str(order.foods.size),
+            str(order.foods.toppings),
+            str(order.foods.price)
+        ]
+        order_list.append(food_array)
+
+    print(order_list)
+    context = {
+        "orders": order_list
+    }
+    return JsonResponse(context)
+
     
 

@@ -30,17 +30,13 @@ class Food(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    foods = models.ManyToManyField(Food)
+    foods = models.ForeignKey(Food, on_delete=models.CASCADE)
 
     @property
-    def get_total(self):
-        total = 0
-        for food in self.foods.all():
-            total += food.price
-        return total
-
+    def price(self):
+        return self.foods.price
     def __str__(self):
-        return f"Order for {self.user} Total: {self.get_total} "
+        return f"Order for {self.user} Total: {self.price} "
     
     
     
