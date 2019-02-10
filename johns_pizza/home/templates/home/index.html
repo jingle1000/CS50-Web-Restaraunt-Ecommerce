@@ -11,7 +11,7 @@
     {% for food, data in foods.items %}
     <!--menu item-->
     <div class="menu-category shadow mb-4">
-        <h4>{{ food }}</h4>
+        <h4 data-type='{{ forloop.counter }}'>{{ food }}</h4>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">Style</label>
@@ -54,14 +54,17 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">$</span>
                     </div>
-                    <input id="item-amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <input data-amount="{{forloop.counter}}"id="item-amount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                     <div class="input-group-append">
                       <span class="input-group-text">.00</span>
                     </div>
                   </div>
             </div>
-            <div class="col-md-6">
-                <button type="button" id="add-item" class="btn btn-primary form-control" data-number='{{ forloop.counter }}'>Add to Order</button>
+            <div class="col-md-3">
+                <button type="button" id="add-item" class="btn btn-primary form-control" data-number='{{ forloop.counter }}'>Check Price</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" id="add-to-cart" class="btn btn-success form-control" data-cart='{{ forloop.counter }}'>Add to Cart</button>
             </div>
         </div>
     </div>
