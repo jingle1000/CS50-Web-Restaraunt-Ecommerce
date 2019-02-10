@@ -37,7 +37,7 @@ def about(request):
     return render(request, 'home/about.html')
 
 def getPrice(request, category, name, size, toppings):
-    food = Food.objects.filter(category__category=category, name=name, size__size=size, topping_name=toppings)
+    food = Food.objects.filter(category__category=category, name=name, size__size=size, toppings__name=toppings)[0]
     price = str(food.price)
     context = {
         "price":price

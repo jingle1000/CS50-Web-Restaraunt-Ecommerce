@@ -43,7 +43,21 @@ class Order(models.Model):
         return f"Order for {self.user} Total: {self.get_total} "
     
     
+def bootstrap():
+    categorys = ["Pizza", "Pasta", "Sub"]
+    sizes = ["Small", "Medium", "Large"]
+    toppings = ["None", "Cheese", "One Topping", "Two Topping", "Three Topping"]
+    for i in range(len(categorys)):
+        c = Category(category=categorys[i])
+        c.save()
+
+    for i in range(len(sizes)):
+        s = Size(size=sizes[i])
+        s.save()
     
+    for i in range(len(toppings)):
+        t = Topping(name=toppings[i])
+        t.save()
 
 
 
