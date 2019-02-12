@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from model_utils import Choices
 from django.contrib.auth.models import User
 
 class Topping(models.Model):
@@ -27,10 +28,24 @@ class Food(models.Model):
     def __str__(self):
         return f"{self.category}, {self.name}, {self.size}, {self.toppings}, {self.price}"
 
+class OrderFood(models.Model):
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+    @property
+    def price(self):
+        return self.food.price * self.quantity
+
+    def __str__(self):
+        return f"{self.food.category}: {self.food.name} - Price: {self.price}"
+    
+
 
 class Order(models.Model):
+    STATUS = Choices(('cart', ('cart')), ('active', ('active')), ('completed', ('completed')))
+    status = models.CharField(choices=STATUS, default=STATUS.cart, max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    foods = models.ManyToManyField(Food)
+    foods = models.ManyToManyField(OrderFood)
 
     @property
     def get_total(self):
@@ -40,7 +55,7 @@ class Order(models.Model):
         return total
 
     def __str__(self):
-        return f"Order for {self.user} Total: {self.get_total} "
+        return f"Order for: {self.user} - Total: {self.get_total} - Status: {self.status}"
     
     
 def bootstrap():

@@ -86,10 +86,18 @@ header {
     width: $form-width;
     background: #fff !important;
     border-radius: $px-md;
+    .box-content {
+        width: auto;
+    }
 }
+
+
+
 
 .fa-shopping-cart {
     margin: $px-md;
 }
+
+
 
 

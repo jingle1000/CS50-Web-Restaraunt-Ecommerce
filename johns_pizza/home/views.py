@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import Food
+from .models import Food, Order, OrderFood
 
 def index(request):
     food_objects = Food.objects.all()
@@ -42,4 +42,43 @@ def getPrice(request, category, name, size, toppings):
     context = {
         "price":price
     }
+    return JsonResponse(context)
+
+def getOrders(request):
+    current_user_id = request.user.id
+    user_orders = Order.objects.filter(user__id=current_user_id)[0]
+    price = user_orders.get_total
+    user_order_foods = user_orders.foods.all()
+    print(user_order_foods)
+    order_list = []
+    for foodEntity in user_order_foods:
+        food = []
+        food.append(foodEntity.quantity)
+        food.append(foodEntity.food.name)
+        food.append(foodEntity.food.category.category)
+        food.append(foodEntity.food.size.size)
+        food.append(foodEntity.food.toppings.name)
+        order_list.append(food)
+        print(f"  {foodEntity.quantity} {foodEntity.food.name} {foodEntity.food.category}")
+    context = {
+        'orders': order_list,
+        'price': price
+    }
+    return JsonResponse(context)
+
+def addToCart(request, category, name, toppings, size, quantity):
+    current_user_id = request.user.id
+    userOrder = Order.objects.filter(user__id=current_user_id, status='cart')[0]
+    try:
+        foodToAdd = Food.objects.filter(category__category=category, name=name, toppings__name=toppings, size__size=size)[0]
+        foodEntity = OrderFood(food=foodToAdd, quantity=int(quantity))
+        foodEntity.save()
+        userOrder.foods.add(foodEntity)
+        context = {
+            'result': "success"
+        }
+    except Exception:
+        context = {
+            'result': f"There was an error processing your request"
+        }
     return JsonResponse(context)

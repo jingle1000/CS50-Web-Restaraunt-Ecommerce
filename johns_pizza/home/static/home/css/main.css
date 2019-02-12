@@ -84,6 +84,10 @@ header .overlay {
   border-radius: 10px;
 }
 
+.form-container .box-content {
+  width: auto;
+}
+
 .fa-shopping-cart {
   margin: 10px;
 }
