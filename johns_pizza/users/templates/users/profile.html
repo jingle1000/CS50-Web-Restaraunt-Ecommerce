@@ -3,14 +3,24 @@
 {% block content %}
 <div class="container mt-5">
         <h1> Welcome {{ user.username }}</h1>
-        <div class="row box-content shadow mt-4">
+        <div class="row bg-white shadow mt-4">
                 <div class="col-md-6 p-4">
                         <h4>Account Details</h4>
-                        
-
+                        <form action="/update-profile/">
+                                <p class="mt-4 mb-0">Address</p>
+                                <input class="form-control" type="text" value="{{address}}" id="address">
+                                <p class="mt-2 mb-0">City</p>
+                                <input type="text" class="form-control" value="{{city}}" id="city">
+                                <p class="mt-2 mb-0">State</p>
+                                <input type="text" class="form-control" value="{{state}}" id="state">
+                                <p class="mt-2 mb-0">Zipcode</p>
+                                <input type="text" class="form-control" value="{{zipcode}}" id="zipcode">
+                                <button type="submit" class="btn btn-primary form-control mt-4">Update Profile</button>
+                        </form>
                 </div>
                 <div class="col-md-6 p-4">
                         <h4>Current Orders</h4>
+                        
                 </div>
         </div>
 </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
+from .models import Profile
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -18,4 +19,12 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    current_user_id = request.user.id
+    usrprfl = Profile.objects.filter(user__id=current_user_id)[0]
+    context = {
+        "address":usrprfl.address,
+        "city": usrprfl.city,
+        "state": usrprfl.state,
+        "zipcode": usrprfl.zipcode
+    }
+    return render(request, 'users/profile.html', context)
