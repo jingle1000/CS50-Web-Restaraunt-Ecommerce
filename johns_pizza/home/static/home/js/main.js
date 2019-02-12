@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
         getOrders();
     });
 
-
     addToCart.addEventListener('click', function (e) {
         let foodData = [];
         const buttonID = e.target.getAttribute('data-cart');
