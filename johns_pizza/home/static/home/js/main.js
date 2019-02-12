@@ -1,6 +1,17 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     const addButtons = document.querySelectorAll('#add-item');
+    const addToCart = document.querySelector('#add-to-cart');
+    const shoppingCart = document.querySelector('.shopping-cart');
+
+    shoppingCart.addEventListener('click', function(){
+
+    });
+
+    addToCart.addEventListener('click', function(){
+
+    });
+    
     addButtons.forEach(button => {
         foodData = [];
         button.addEventListener("click", function(e){

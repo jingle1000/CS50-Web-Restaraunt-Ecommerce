@@ -43,3 +43,6 @@ def getPrice(request, category, name, size, toppings):
         "price":price
     }
     return JsonResponse(context)
+
+def getOrders(request):
+    pass
