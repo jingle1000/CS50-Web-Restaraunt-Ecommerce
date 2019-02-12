@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
 from .models import Profile
+from home.models import Order
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -21,10 +22,19 @@ def register(request):
 def profile(request):
     current_user_id = request.user.id
     usrprfl = Profile.objects.filter(user__id=current_user_id)[0]
+    usrorders = Order.objects.filter(user__id=current_user_id, status='cart')[0]
+    orders = []
+    for food_entity in usrorders.foods.all():
+        food_info = {}
+        print(food_entity)
+        food_info["quantity"] = str(food_entity.quantity)
+        food_info["name"] = f"{food_entity.food.name} {food_entity.food.category.category}'s of size {food_entity.food.size.size} topped with {food_entity.food.toppings.name}"
+        orders.append(food_info)
     context = {
         "address":usrprfl.address,
         "city": usrprfl.city,
         "state": usrprfl.state,
-        "zipcode": usrprfl.zipcode
+        "zipcode": usrprfl.zipcode,
+        "orders":orders
     }
     return render(request, 'users/profile.html', context)
