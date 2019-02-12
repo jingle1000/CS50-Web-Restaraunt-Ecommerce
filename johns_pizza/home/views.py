@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import Food, Order
+from .models import Food, Order, OrderFood
 
 def index(request):
     food_objects = Food.objects.all()
@@ -66,5 +66,19 @@ def getOrders(request):
     }
     return JsonResponse(context)
 
-def addToCart(request, category, style, toppings, size, quantity):
-    pass
+def addToCart(request, category, name, toppings, size, quantity):
+    current_user_id = request.user.id
+    userOrder = Order.objects.filter(user__id=current_user_id, status='cart')[0]
+    try:
+        foodToAdd = Food.objects.filter(category__category=category, name=name, toppings__name=toppings, size__size=size)[0]
+        foodEntity = OrderFood(food=foodToAdd, quantity=int(quantity))
+        foodEntity.save()
+        userOrder.foods.add(foodEntity)
+        context = {
+            'result': "success"
+        }
+    except Exception:
+        context = {
+            'result': f"There was an error processing your request"
+        }
+    return JsonResponse(context)

@@ -14,13 +14,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    addToCart.addEventListener('click', function () {
-        getOrders();
+    addToCart.addEventListener('click', function (e) {
+        let foodData = [];
+        const buttonID = e.target.getAttribute('data-cart');
+        heading = document.querySelector(`[data-type='${buttonID}']`);
+        foodData.push(heading.innerText);
+        const inputs = document.querySelectorAll(`[data-id='${buttonID}']`);
+        inputs.forEach(item => foodData.push(item.value));
+        getOrders(userOrders);
+        addItemsToCart(foodData);
     });
 
     addButtons.forEach(button => {
         button.addEventListener("click", function (e) {
-            foodData = [];
+            let foodData = [];
             const buttonID = e.target.getAttribute('data-number');
             heading = document.querySelector(`[data-type='${buttonID}']`);
             foodData.push(heading.innerText);
@@ -74,6 +81,23 @@ function getOrders() {
     request.send();
 }
 
+function addItemsToCart(foodArray) {
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            data = this.responseText;
+            data = JSON.parse(data);
+            if (data.result != "success") {
+                alert("Something went wrong adding the item to cart.")
+            }
+        }
+    }
+    request.open('GET', `addtocart/${foodArray[0]}/${foodArray[1]}/${foodArray[2]}/${foodArray[3]}/${foodArray[4]}`, true);
+    request.send();
+}
+
+
+
 
 //dom modifiers
 function updatePrice(price, buttonID) {
@@ -95,5 +119,5 @@ function showCart(orderArray) {
             listItem.innerText = `${food[0]} ${food[1]} ${food[2]}'s of size ${food[3]} topped with ${food[4]}`;
             dropdown.appendChild(listItem);
         });
-    } 
+    }
 }
