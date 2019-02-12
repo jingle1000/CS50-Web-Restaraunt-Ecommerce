@@ -3,6 +3,9 @@ from django.utils import timezone
 from model_utils import Choices
 from django.contrib.auth.models import User
 
+
+
+
 class Topping(models.Model):
     name = models.CharField(max_length=80)
     def __str__(self):
@@ -73,6 +76,7 @@ def bootstrap():
     for i in range(len(toppings)):
         t = Topping(name=toppings[i])
         t.save()
+    
 
 
 
