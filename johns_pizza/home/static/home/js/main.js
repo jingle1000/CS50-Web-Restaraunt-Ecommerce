@@ -1,4 +1,5 @@
 var userOrders = [];
+var userTotal = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
     const addButtons = document.querySelectorAll('#add-item');
@@ -18,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     addButtons.forEach(button => {
-        foodData = [];
         button.addEventListener("click", function (e) {
+            foodData = [];
             const buttonID = e.target.getAttribute('data-number');
             heading = document.querySelector(`[data-type='${buttonID}']`);
             foodData.push(heading.innerText);
@@ -38,7 +39,12 @@ function getPrice(foodData, buttonID) {
             data = this.responseText;
             data = JSON.parse(data);
             if (data) {
-                price = data.price;
+                if (foodData[4] == '') {
+                    price = data.price;
+                } else {
+                    price = data.price * foodData[4];
+                    price = Math.round(price * 100) / 100
+                }
                 updatePrice(price, buttonID);
             }
         }
@@ -53,7 +59,9 @@ function getOrders() {
         if (this.readyState == 4 && this.status == 200) {
             userOrders = [];
             data = this.responseText;
-            data = JSON.parse(data)
+            data = JSON.parse(data);
+            console.log(data.price);
+            userTotal = data.price;
             data = data.orders;
             data.forEach(food => {
                 console.log(food);
@@ -71,7 +79,6 @@ function getOrders() {
 function updatePrice(price, buttonID) {
     console.log(price + " " + buttonID);
     const input = document.querySelector(`[data-amount='${buttonID}']`);
-    console.log(input);
     input.value = price;
 }
 
@@ -81,12 +88,11 @@ function showCart(orderArray) {
     if (orderArray) {
         const dropdown = document.querySelector("#shop-dropdown");
         console.log(orderArray);
-        dropdown.innerHTML = '';
+        dropdown.innerHTML = `<h6 class="ml-4 mt-2">My Cart</h6><p class="ml-4">Cart Total: \$${userTotal}</p><hr>`;
         orderArray.forEach(food => {
-
             let listItem = document.createElement('a');
             listItem.className = "dropdown-item";
-            listItem.innerText = `${food[0]}: ${food[1]} ${food[2]}'s of size ${food[3]} topped with ${food[4]}`;
+            listItem.innerText = `${food[0]} ${food[1]} ${food[2]}'s of size ${food[3]} topped with ${food[4]}`;
             dropdown.appendChild(listItem);
         });
     } 

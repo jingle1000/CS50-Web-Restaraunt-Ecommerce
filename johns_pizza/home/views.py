@@ -47,6 +47,7 @@ def getPrice(request, category, name, size, toppings):
 def getOrders(request):
     current_user_id = request.user.id
     user_orders = Order.objects.filter(user__id=current_user_id)[0]
+    price = user_orders.get_total
     user_order_foods = user_orders.foods.all()
     print(user_order_foods)
     order_list = []
@@ -60,6 +61,10 @@ def getOrders(request):
         order_list.append(food)
         print(f"  {foodEntity.quantity} {foodEntity.food.name} {foodEntity.food.category}")
     context = {
-        'orders': order_list
+        'orders': order_list,
+        'price': price
     }
     return JsonResponse(context)
+
+def addToCart(request, category, style, toppings, size, quantity):
+    pass
