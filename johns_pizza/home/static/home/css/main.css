@@ -87,4 +87,11 @@ header .overlay {
 .fa-shopping-cart {
   margin: 10px;
 }
+
+#shop-dropdown {
+  position: absolute;
+  width: 400px;
+  top: 60px !important;
+  left: -340px !important;
+}
 /*# sourceMappingURL=main.css.map */

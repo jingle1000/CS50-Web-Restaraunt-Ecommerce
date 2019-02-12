@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import Food
+from .models import Food, Order
 
 def index(request):
     food_objects = Food.objects.all()
@@ -45,4 +45,21 @@ def getPrice(request, category, name, size, toppings):
     return JsonResponse(context)
 
 def getOrders(request):
-    pass
+    current_user_id = request.user.id
+    user_orders = Order.objects.filter(user__id=current_user_id)[0]
+    user_order_foods = user_orders.foods.all()
+    print(user_order_foods)
+    order_list = []
+    for foodEntity in user_order_foods:
+        food = []
+        food.append(foodEntity.quantity)
+        food.append(foodEntity.food.name)
+        food.append(foodEntity.food.category.category)
+        food.append(foodEntity.food.size.size)
+        food.append(foodEntity.food.toppings.name)
+        order_list.append(food)
+        print(f"  {foodEntity.quantity} {foodEntity.food.name} {foodEntity.food.category}")
+    context = {
+        'orders': order_list
+    }
+    return JsonResponse(context)
