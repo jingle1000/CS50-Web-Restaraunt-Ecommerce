@@ -3,7 +3,7 @@ var userTotal = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
     const addButtons = document.querySelectorAll('#add-item');
-    const addToCart = document.querySelector('#add-to-cart');
+    const addToCart = document.querySelectorAll('#add-to-cart');
     const shoppingCart = document.querySelector('.shopping-cart');
 
     showCart(userOrders);
@@ -13,16 +13,19 @@ document.addEventListener("DOMContentLoaded", function () {
         getOrders();
     });
 
-    addToCart.addEventListener('click', function (e) {
-        let foodData = [];
-        const buttonID = e.target.getAttribute('data-cart');
-        heading = document.querySelector(`[data-type='${buttonID}']`);
-        foodData.push(heading.innerText);
-        const inputs = document.querySelectorAll(`[data-id='${buttonID}']`);
-        inputs.forEach(item => foodData.push(item.value));
-        getOrders(userOrders);
-        addItemsToCart(foodData);
+    addToCart.forEach(item => {
+        item.addEventListener('click', function (e) {
+            let foodData = [];
+            const buttonID = e.target.getAttribute('data-cart');
+            heading = document.querySelector(`[data-type='${buttonID}']`);
+            foodData.push(heading.innerText);
+            const inputs = document.querySelectorAll(`[data-id='${buttonID}']`);
+            inputs.forEach(item => foodData.push(item.value));
+            getOrders(userOrders);
+            addItemsToCart(foodData);
+        });
     });
+
 
     addButtons.forEach(button => {
         button.addEventListener("click", function (e) {

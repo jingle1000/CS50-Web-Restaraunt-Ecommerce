@@ -68,7 +68,11 @@ def getOrders(request):
 
 def addToCart(request, category, name, toppings, size, quantity):
     current_user_id = request.user.id
-    userOrder = Order.objects.filter(user__id=current_user_id, status='cart')[0]
+    try:
+        userOrder = Order.objects.filter(user__id=current_user_id, status='cart')[0]
+    except IndexError:
+        userOrder = Order(user=request.user, status='cart')
+        userOrder.save()
     try:
         foodToAdd = Food.objects.filter(category__category=category, name=name, toppings__name=toppings, size__size=size)[0]
         foodEntity = OrderFood(food=foodToAdd, quantity=int(quantity))
